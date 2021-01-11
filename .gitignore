@@ -1,0 +1,6 @@
+*.pyc
+/.idea
+/__pycache__
+/app/config/secure.py
+/migrations
+/.vscode
