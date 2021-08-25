@@ -12,8 +12,10 @@
 ## 使用方法
 ### 本地测试
 #### 后端
-1、修改my_jixiao_backend/app/config/settings.py中SQLALCHEMY_DATABASE_URI为自己数据库地址 
-
+1、修改my_jixiao_backend/app/config/settings.py中SQLALCHEMY_DATABASE_URI为自己数据库地址
+```
+SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:123456@127.0.0.1:3306/performance?charset=utf8'
+```
 2、数据库中运行jixiao_zhanshi.sql文件，添加测试数据 
 
 3、
@@ -60,6 +62,21 @@ docker run -it id 7001:80 performance-management-frontend:1
 账号：10000
 密码：123456
 ```  
+## 运行问题
+- 'app' found in '/home/performance-management-backend/app/__init__.py'.
+- 'app.config' found in None.
+- 'app.config.secure' not found.
+这个app.config.secure在源码中出现，但是实际上注释也可以使用！
+可以直接注释performance-management-backend/app/__init__.py的末尾的引用
+```
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object('app.config.settings')
+    #app.config.from_object('app.config.secure')
+    register_blueprints(app)
+    register_plugin(app)
+    return app
+```
 ## 部分截图
 ![](http://pic.tongxunkeji.cn/%E9%A6%96%E9%A1%B5.png)  
 
